@@ -5,13 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Elo.Models;
+using Elo.Business.Contract;
 
 namespace Elo.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICambioBusiness cambioBusiness;
+
+        public HomeController(ICambioBusiness cambioBusiness)
+        {
+            this.cambioBusiness = cambioBusiness;
+        }
+
         public IActionResult Index()
         {
+            var retorno = cambioBusiness.GetTaxasDeCambio("EUR");
+
             return View();
         }
 

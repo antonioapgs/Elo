@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Elo.Business;
+using Elo.Business.Contract;
+using Elo.Service;
+using Elo.Service.Contract;
+using Elo.Service.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +27,11 @@ namespace Elo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            var jsonRatesSettings = Configuration.GetSection("JsonRatesSettings");
+            services.Configure<JsonRatesSettings>(jsonRatesSettings);
+            services.AddTransient<IJsonRatesService, JsonRatesService>();
+            services.AddTransient<ICambioBusiness, CambioBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

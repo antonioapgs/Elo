@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Elo.Service\Elo.Service.csproj" />
+  </ItemGroup>
+
 </Project>
