@@ -1,7 +1,4 @@
 ﻿using Elo.Service.Client;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Elo.Service.Contract
 {

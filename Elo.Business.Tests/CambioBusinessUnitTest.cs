@@ -1,8 +1,8 @@
 using Elo.Business.Contract;
-using Elo.Business.ValueObject;
+using Elo.Business.Tests.Builder;
 using NSubstitute;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Elo.Business.Tests
@@ -29,13 +29,13 @@ namespace Elo.Business.Tests
                 .Returns(s => { throw new ArgumentException("A moeda informada é inválida."); });
 
             mock.GetTaxasDeCambio(MOEDA_VALIDA)
-                .Returns(new List<Cambio>());
+                .Returns(s => new CambioBuilder(MOEDA_VALIDA).TaxasDeCambio);
         }
 
         [Fact]
         public void TestarParametroNull()
         {
-            Exception ex = Assert.Throws<Exception>(() => mock.GetTaxasDeCambio(null));     
+            Exception ex = Assert.Throws<Exception>(() => mock.GetTaxasDeCambio(null));
             Assert.Equal("A moeda precisa ser preenchida.", ex.Message);
         }
 
@@ -56,7 +56,8 @@ namespace Elo.Business.Tests
         [Fact]
         public void TestarParametroValido()
         {
-            Assert.Equal(new List<Cambio>(), mock.GetTaxasDeCambio(MOEDA_VALIDA));
+            Assert.True(mock.GetTaxasDeCambio(MOEDA_VALIDA) != null);
+            Assert.Equal(7, mock.GetTaxasDeCambio(MOEDA_VALIDA).Count());
         }
     }
 }

@@ -1,14 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 
 namespace Elo.Service.Client
 {
     internal static class ApiClient
     {
+        /// <summary>
+        /// Client responsável pelo consumo dos dados do endpoint da API
+        /// </summary>
+        /// <param name="url">URL do endpoint da API</param>
+        /// <returns>Instância do objeto Quotes, contendo a data e o valor do câmbio</returns>
         public static Quotes GetJson(string url)
         {
             using (var client = new HttpClient())
@@ -35,17 +38,6 @@ namespace Elo.Service.Client
                     throw new Exception("Erro inesperado ao recuperar os valores.");
                 }
             }
-        }
-
-        public static Quotes GetJsonMock(string url)
-        {
-            return new Quotes()
-            {
-                Date = DateTime.Now.Date,
-                USDARS = 0.33M,
-                USDBRL = 3.77M,
-                USDEUR = 4.38M
-            };
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Elo.Business.Contract;
 using Elo.Business.ValueObject;
-using Elo.Service;
 using Elo.Service.Contract;
 using System;
 using System.Collections.Generic;
@@ -15,19 +14,17 @@ namespace Elo.Business
         {
             this.service = service;
         }
-
+        
+        /// <summary>
+        /// Recupera as taxas de câmbio
+        /// </summary>
+        /// <param name="moeda">Moeda a qual deseja saber o valor em relação ao real</param>
+        /// <returns>IEnumerable de objetos do tipo Cambio</returns>
         public IEnumerable<Cambio> GetTaxasDeCambio(string moeda)
         {
-            string[] moedasValidas = { "BRL", "EUR", "ARS" };
+            ValidaMoeda(moeda);
 
-            if (string.IsNullOrEmpty(moeda))
-                throw new Exception("A moeda precisa ser preenchida.");
-
-            if (Array.IndexOf(moedasValidas, moeda) < 0)
-                throw new ArgumentException("A moeda informada é inválida.");
-            
-            var retorno = new List<Cambio>();
-
+            List<Cambio> retorno = new List<Cambio>();
             for (DateTime dtReferencia = DateTime.Now.Date.AddDays(-6); dtReferencia <= DateTime.Now.Date; dtReferencia = dtReferencia.AddDays(1))
             {
                 var cambioSolicitado = service.GetCurrencyByHistorical(moeda, dtReferencia.Date.ToString("yyyy-MM-dd"));
@@ -48,6 +45,21 @@ namespace Elo.Business
             }
 
             return retorno;
+        }
+
+        /// <summary>
+        /// Validação da moeda informada
+        /// </summary>
+        /// <param name="moeda">Moeda informada</param>
+        private static void ValidaMoeda(string moeda)
+        {
+            string[] moedasValidas = { "BRL", "EUR", "ARS" };
+
+            if (string.IsNullOrEmpty(moeda))
+                throw new Exception("A moeda precisa ser preenchida.");
+
+            if (Array.IndexOf(moedasValidas, moeda) < 0)
+                throw new ArgumentException("A moeda informada é inválida.");
         }
 
         private decimal ConverterCambio(decimal baseQuota, decimal quota)
