@@ -18,24 +18,21 @@ namespace Elo.Controllers
             this.cambioBusiness = cambioBusiness;
         }
 
+        public JsonResult GetTaxasDeCambio(string moeda)
+        {
+            try
+            {
+                var retorno = cambioBusiness.GetTaxasDeCambio(moeda);
+                return Json(retorno);
+            }
+            catch (Exception ex)
+            {
+                return Json(null);
+            }
+        }
+
         public IActionResult Index()
         {
-            var retorno = cambioBusiness.GetTaxasDeCambio("EUR");
-
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
