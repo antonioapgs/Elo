@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Elo.Business.Contract;
 using Elo.Models;
-using Elo.Business.Contract;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Net;
 
 namespace Elo.Controllers
 {
@@ -23,11 +21,11 @@ namespace Elo.Controllers
             try
             {
                 var retorno = cambioBusiness.GetTaxasDeCambio(moeda);
-                return Json(retorno);
+                return Json(new { success = true, response = retorno });
             }
             catch (Exception ex)
             {
-                return Json(null);
+                return Json(new { success = false, response = ex.Message });
             }
         }
 

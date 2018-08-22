@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,5 +28,4 @@
     <ProjectReference Include="..\Elo.Business\Elo.Business.csproj" />
     <ProjectReference Include="..\Elo.Service\Elo.Service.csproj" />
   </ItemGroup>
-
 </Project>

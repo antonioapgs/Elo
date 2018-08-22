@@ -1,6 +1,6 @@
-FROM microsoft/aspnetcore:2.0.0
+FROM microsoft/aspnetcore
 
 WORKDIR /app
-COPY /publish .
+COPY . .
 
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet Elo.dll

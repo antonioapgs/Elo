@@ -43,12 +43,13 @@
 
             $.get('Home/GetTaxasDeCambio', { moeda: event.target.value }, function (data, status) {
 
-                if (status == 'success') {
+                if (data.success) {
                     var serie = [];
                     var categories = [];
-                    for (var i = 0; i < data.length; i++) {
-                        var dataCambio = Number(new Date(data[i].dataCambio));
-                        serie.push([dataCambio, data[i].valor])
+					for (var i = 0; i < data.response.length; i++) {
+						var dataCambio = Number(new Date(data.response[i].dataCambio));
+						var valor = data.response[i].valor;
+                        serie.push([dataCambio, valor])
                         categories.push(dataCambio);
                     }
 
@@ -58,8 +59,8 @@
                         $this.html($this.data('wait-text'));
                     }, 500);
                 }
-                else {
-                    alert('Oops! Ocorreu um erro ao recuperar o câmbio. Tente novamente.')
+				else {
+					alert('Oops! Ocorreu um erro ao recuperar o câmbio. Mensagem: ' + data.response);
 
                     setTimeout(function () {
                         $this.html($this.data('wait-text'));
@@ -75,24 +76,28 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Valor (R$)'
+                        text: 'Variação em R$'
                     }
                 },
                 xAxis: {
                     type: 'datetime',
                     tickInterval: 24 * 3600 * 1000,
-                    tickPositions: categoriesData,
+					tickPositions: categoriesData,
+					title: {
+						text: 'Período'
+					},
                     labels: {
-                        format: '{value:%d/%m}',
-                        rotation: 270
+                        format: '{value:%d/%m}'
                     }
                 },
                 tooltip: {
-                    xDateFormat: '%d/%m/%Y',
-                    textAlign: 'center'
+					xDateFormat: 'Data: %d/%m/%Y',
+					valueDecimals: 4,
+					valuePrefix: 'R$ ',
                 },
-                series: [{
-                    name: 'Cotação',
+				series: [{
+					showInLegend: false,
+                    name: 'Valor',
                     data: serieData
                 }]
             });
