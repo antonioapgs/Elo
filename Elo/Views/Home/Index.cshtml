@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Elo";
+}
+
+<div class="row">
+    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-6 text-center">
+        <h2>Taxas de Câmbio</h2>
+    </div>
+    <div class="col-md-6">&nbsp;</div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+            <label>Selecione a moeda desejada: </label>
+            <button class="btn btn-primary currency" value="BRL">Dolar</button>
+            <button class="btn btn-primary currency" value="EUR">Euro</button>
+            <button class="btn btn-primary currency" value="ARS">Peso Argentino</button>
+        </div>
+        <div class="col-md-3">&nbsp;</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-6">
+        <div id="container"></div>
+    </div>
+    <div class="col-md-3">&nbsp;</div>
+</div>
+
+@section Scripts{
+	<script src="~/js/cambio.js"></script>
+}

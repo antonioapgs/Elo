@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  elo:
+    image: elo
+    build:
+      context: .
+      dockerfile: Elo/Dockerfile
